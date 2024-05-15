@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React user</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    function UserDetails({ user }) {
+      const { id, name, profession, accomplishment, imageId } = user;
+      return (
+        <div>
+          <img src={imageId} alt={name} />
+          <p>{name}</p>
+          <p>{profession}</p>
+        </div>
+      );
+    }
+    function App() {
+      const users = [
+        {
+          id: 0, // Used in JSX as a key
+          name: "Creola Katherine Johnson",
+          profession: "mathematician",
+          accomplishment: "spaceflight calculations",
+          imageId:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGdePPApEXzGV_RUbIRoN5pqArRnlAkPuJHbONv3FIMA&s",
+        },
+        {
+          id: 1, // Used in JSX as a key
+          name: "Mario José Molina-Pasquel Henríquez",
+          profession: "chemist",
+          accomplishment: "discovery of Arctic ozone hole",
+          imageId:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJj3W1U0WopNfBZ5vv5zIP2wnWwptRyhpY0juQFB_6A&s",
+        },
+        {
+          id: 2, // Used in JSX as a key
+          name: "Mohammad Abdus Salam",
+          profession: "physicist",
+          accomplishment: "electromagnetism theory",
+          imageId:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Abdus_Salam_1987.jpg/330px-Abdus_Salam_1987.jpg",
+        },
+        {
+          id: 3, // Used in JSX as a key
+          name: "Percy Lavon Julian",
+          profession: "chemist",
+          accomplishment:
+            "pioneering cortisone drugs, steroids and birth control pills",
+          imageId:
+            "https://hips.hearstapps.com/hmg-prod/images/gettyimages-514977654.jpg",
+        },
+        {
+          id: 4, // Used in JSX as a key
+          name: "Subrahmanyan Chandrasekhar",
+          profession: "astrophysicist",
+          accomplishment: "white dwarf star mass calculations",
+          imageId:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQflgROMqDJH1Ie6ZDcnaZJ1rZQYmyCOWkZnIqljqHdw&s",
+        },
+      ];
+      const [search, setSearch] = React.useState("");
+      const [filter, setfilter] = React.useState(users);
+      function handleChange(event) {
+        const query = event.target.value;
+        setSearch(query);
+        const filterdata = users.filter((ele) =>
+          ele.name.toLowerCase().includes(query.toLowerCase())
+        );
+        setfilter(filterdata)
+      }
+      return (
+        <>
+        <div>
+            <input type="text" placeholder="Search" 
+            value={search}
+            onChange={handleChange} />
+            {filter.map((user, index) => (
+                <UserDetails key={index} user={user} />
+            ))}
+            </div>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</html>
